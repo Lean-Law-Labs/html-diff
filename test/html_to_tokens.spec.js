@@ -44,6 +44,10 @@ describe('htmlToTokens', function(){
 
     it('should identify contiguous whitespace as a single token', function(){
         expect(cut('a   b')).to.eql(tokenize(['a', '   ', 'b']));
+    })
+
+    it('should identify punctuation as a single token', function(){
+        expect(cut('Hello, World!')).to.eql(tokenize(['Hello', ',', ' ','World','!']));
     });
 
     it('should identify a single space as a single token', function(){
