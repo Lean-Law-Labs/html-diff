@@ -70,8 +70,8 @@
      */
     var atomicTagsRegExp;
     // Added head and style (for style tags inside the body)
-    var defaultAtomicTagsRegExp = new RegExp('^<(iframe|object|math|svg|script|video|head|style|a)\b');
-    
+    var defaultAtomicTagsRegExp = /^<(iframe|object|math|svg|script|video|head|style|a)\b/;
+
     /**
      * Checks if the current word is the beginning of an atomic tag. An atomic tag is one whose
      * child nodes should not be compared - the entire tag should be treated as one token. This
@@ -287,7 +287,7 @@
         if (img) {
             return '<img src="' + img[1] + '">';
         }
-        
+
         // If the token is an a element, grab it's data attribute to include in the key.
         var a = /^<a.*href=['"]([^"']*)['"]/.exec(token);
         if (a) {
@@ -310,7 +310,7 @@
                 return start + end;
             } else {
                 return token;
-            } 
+            }
         }
 
         // If the token is an iframe element, grab it's src attribute to include in it's key.
@@ -505,7 +505,7 @@
                 // beforeTokens and afterTokens.
                 var bestMatchLength = bestMatch ? bestMatch.length : 0;
                 var match = getFullMatch(
-                        segment, beforeIndex, afterIndex, bestMatchLength, lookBehind);
+                    segment, beforeIndex, afterIndex, bestMatchLength, lookBehind);
 
                 // If we got a new best match, we'll save it aside.
                 if (match && match.length > bestMatchLength){
@@ -635,11 +635,11 @@
                 // from that area and throw it into the segments array to get processed.
                 if (match.segmentStartInBefore > 0 && match.segmentStartInAfter > 0){
                     var leftBeforeTokens = segment.beforeTokens.slice(
-                            0, match.segmentStartInBefore);
+                        0, match.segmentStartInBefore);
                     var leftAfterTokens = segment.afterTokens.slice(0, match.segmentStartInAfter);
 
                     segments.push(createSegment(leftBeforeTokens, leftAfterTokens,
-                            segment.beforeIndex, segment.afterIndex));
+                        segment.beforeIndex, segment.afterIndex));
                 }
 
                 // If there's an unmatched area at the end of the segment, create a new segment from that
@@ -651,7 +651,7 @@
 
                 if (rightBeforeTokens.length && rightAfterTokens.length){
                     segments.push(createSegment(rightBeforeTokens, rightAfterTokens,
-                            rightBeforeIndex, rightAfterIndex));
+                        rightBeforeIndex, rightAfterIndex));
                 }
 
                 matches.add(match);
@@ -707,10 +707,10 @@
                     action: actionUpToMatchPositions,
                     startInBefore: positionInBefore,
                     endInBefore: (actionUpToMatchPositions !== 'insert' ?
-                            match.startInBefore - 1 : null),
+                        match.startInBefore - 1 : null),
                     startInAfter: positionInAfter,
                     endInAfter: (actionUpToMatchPositions !== 'delete' ?
-                            match.startInAfter - 1 : null)
+                        match.startInAfter - 1 : null)
                 });
             }
             if (match.length !== 0){
@@ -743,7 +743,7 @@
             var op = operations[i];
 
             if ((isSingleWhitespace(op) && lastOp.action === 'replace') ||
-                    (op.action === 'replace' && lastOp.action === 'replace')){
+                (op.action === 'replace' && lastOp.action === 'replace')){
                 lastOp.endInBefore = op.endInBefore;
                 lastOp.endInAfter = op.endInAfter;
             } else {
@@ -936,7 +936,7 @@
     function renderOperations(beforeTokens, afterTokens, operations, dataPrefix, className){
         return operations.reduce(function(rendering, op, index){
             return rendering + OPS[op.action](
-                    op, beforeTokens, afterTokens, index, dataPrefix, className);
+                op, beforeTokens, afterTokens, index, dataPrefix, className);
         }, '');
     }
 
@@ -949,8 +949,8 @@
      * @param {string} className (Optional) The class attribute to include in <ins> and <del> tags.
      * @param {string} dataPrefix (Optional) The data prefix to use for data attributes. The
      *      operation index data attribute will be named `data-${dataPrefix-}operation-index`.
-     * @param {string} atomicTags (Optional) Comma separated list of atomic tag names. The 
-     *     list has to be in the form `tag1,tag2,...` e. g. `head,script,style`. If not used, 
+     * @param {string} atomicTags (Optional) Comma separated list of atomic tag names. The
+     *     list has to be in the form `tag1,tag2,...` e. g. `head,script,style`. If not used,
      *     the default list `iframe,object,math,svg,script,video,head,style` will be used.
      *
      * @return {string} The combined HTML content with differences wrapped in <ins> and <del> tags.
@@ -959,7 +959,7 @@
         if (before === after) return before;
 
         // Enable user provided atomic tag list.
-        atomicTags ? 
+        atomicTags ?
             (atomicTagsRegExp = new RegExp('^<(' + atomicTags.replace(/\s*/g, '').replace(/,/g, '|') + ')\b'))
             : (atomicTagsRegExp = defaultAtomicTagsRegExp);
 
@@ -981,7 +981,7 @@
 
     if (typeof define === 'function'){
         define([], function(){
-          return diff;
+            return diff;
         });
     } else if (typeof module !== 'undefined' && module !== null){
         module.exports = diff;
