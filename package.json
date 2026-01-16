@@ -54,7 +54,7 @@
         "chai": "*",
         "eslint": "8.22.0",
         "eslint-plugin-jsdoc": "39.3.6",
-        "pkg": "5.8.0",
+        "pkg": "5.8.1",
         "typescript": "4.7.4",
         "mocha": "*"
     },
