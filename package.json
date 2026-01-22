@@ -1,9 +1,9 @@
 {
-    "name": "node-htmldiff",
+    "name": "@lean-law-labs/html-diff",
     "description": "Diff and markup HTML with <ins> and <del> tags",
     "companyname": "idesis GmbH",
     "copyright": "©2022, idesis GmbH; ©2012 The Network Inc. and contributors",
-    "version": "0.9.4",
+    "version": "0.9.5",
     "identifier": "de.idesis.node-htmldiff",
     "keywords": [
         "diff",
@@ -12,7 +12,7 @@
         "ins",
         "del"
     ],
-    "homepage": "https://github.com/idesis-gmbh/htmldiff.js",
+    "homepage": "https://github.com/Lean-Law-Labs/html-diff",
     "author": {
         "name": "Michael Nitze",
         "email": "michael.nitze@idesis.de",
@@ -21,16 +21,19 @@
     "contributors": [
         "The Network Inc. (https://www.tninetwork.com, https://github.com/tnwinc/htmldiff.js)",
         "Inkling (https://www.inkling.com, https://github.com/inkling/htmldiff.js)",
-        "Ian White (ianwhitester@gmail.com, https://github.com/ian97531)"
+        "Ian White (ianwhitester@gmail.com, https://github.com/ian97531)",
+        "Lean Law Labs (https://github.com/Lean-Law-Labs)"
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/idesis-gmbh/htmldiff.js.git"
+        "url": "git+https://github.com/Lean-Law-Labs/html-diff.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
     },
     "readme": "README.md",
     "bugs": {
-        "url": "https://github.com/idesis-gmbh/htmldiff.js/issues",
-        "email": "produktion@idesis.de"
+        "url": "https://github.com/Lean-Law-Labs/html-diff/issues"
     },
     "private": false,
     "license": "MIT",
