@@ -238,7 +238,7 @@
                             words.push(createToken(currentWord));
                         }
                         currentWord = char;
-                    } else if (/[.,!?;:'"()…""''–—-]/.test(char)){
+                    } else if (/[.,!?;:'"…""''–—-]/.test(char)){
                         // Check if this is a semicolon ending an HTML entity (e.g., &nbsp;)
                         if (char === ';' && currentWord.charAt(0) === '&'){
                             currentWord += char;
