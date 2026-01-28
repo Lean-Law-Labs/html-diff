@@ -26,7 +26,21 @@ describe('Diff', function(){
         expect(res).to.equal('input<ins data-operation-index="1"> 2</ins>');
       });
     }); // describe('When a letter is added')
-  
+    describe('When punctuation is changed', function() {
+      beforeEach(function(){
+        res = cut('Here is my test', 'Here is my test.');
+      });
+      it('should mark punctuation', function() {
+        expect(res).to.equal('Here is my test<ins data-operation-index="1">.</ins>')
+      });
+    });
+    describe('Smart quotes', function  () {
+      it('should identify and tokenize smart quotes', function() {
+        const res = cut('(the “Study Product”) in amounts necessary', '(the "Study Product") in amounts necessary' );
+        console.log("the res:  ", res);
+        expect(res).to.equal('(the <del data-operation-index="1">“</del><ins data-operation-index="1">"</ins>Study Product<del data-operation-index="3">”</del><ins data-operation-index="3">"</ins>) in amounts necessary')
+      })
+    });
     describe('Whitespace differences', function(){
       it('should collapse adjacent whitespace', function(){
         expect(cut('Much \n\t    spaces', 'Much spaces')).to.equal('Much spaces');
