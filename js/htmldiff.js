@@ -232,13 +232,17 @@
                         currentWord = char;
                         mode = 'whitespace';
                     } else if (/[\w\d\#@]/.test(char)){
+                        if (currentWord && !/^[\w\d\#@]*$/.test(currentWord) && currentWord.charAt(0) !== '&'){
+                            words.push(createToken(currentWord));
+                            currentWord = '';
+                        }
                         currentWord += char;
                     } else if (/&/.test(char)){
                         if (currentWord){
                             words.push(createToken(currentWord));
                         }
                         currentWord = char;
-                    } else if (/[.,!?;:'"…""''–—-]/.test(char)){
+                    } else if (/[.,!?;:'"\u2026\u201C\u201D\u2018\u2019\u2013\u2014-]/.test(char)){
                         // Check if this is a semicolon ending an HTML entity (e.g., &nbsp;)
                         if (char === ';' && currentWord.charAt(0) === '&'){
                             currentWord += char;
@@ -252,6 +256,10 @@
                             currentWord = '';
                         }
                     } else {
+                        if (currentWord && /^[\w\d\#@]+$/.test(currentWord)){
+                            words.push(createToken(currentWord));
+                            currentWord = '';
+                        }
                         currentWord += char;
                         words.push(createToken(currentWord));
                         currentWord = '';
